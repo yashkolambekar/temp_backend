@@ -42,6 +42,16 @@ app.get("/api/notes/:id", (request, response) => {
   }
 });
 
+app.put("/api/notes/:id", (request, response) => {
+  console.log(request.body);
+  const id = Number(request.params.id);
+  let note = notes.find((obj) => obj.id == id)
+  note.important = request.body.important
+  notes = notes.filter((note) => note.id !== id);
+  notes = notes.concat(note)
+  response.json(note)
+})
+
 app.delete("/api/notes/:id", (request, response) => {
   const id = Number(request.params.id);
   notes = notes.filter((note) => note.id !== id);
